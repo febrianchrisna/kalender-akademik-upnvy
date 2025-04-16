@@ -10,10 +10,10 @@ const app = express();
 
 // Add CORS configuration
 const corsOptions = {
-  origin: "http://localhost:8080", // Replace with your frontend URL
-  credentials: true, // Allow cookies and credentials
-  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  origin: "http://34.46.200.21:8080", // Gantilah dengan alamat IP eksternal VM Anda
+  credentials: true,                   // Allow cookies and credentials
+  methods: ["GET", "POST", "PUT", "DELETE"],  // Metode HTTP yang diizinkan
+  allowedHeaders: ["Content-Type", "Authorization"], // Header yang diizinkan
 };
 app.use(cors(corsOptions));
 
