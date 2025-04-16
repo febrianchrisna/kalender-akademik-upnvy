@@ -1,0 +1,112 @@
+### User Routes
+
+# Get all users
+GET http://localhost:5000/users
+
+###
+
+# Create a user
+POST http://localhost:5000/add-user 
+Content-Type: application/json
+
+{
+    "name": "pepep",
+    "email": "123220051@upn.com",
+    "password": "pepep123",
+    "role": "user"
+}
+
+### 
+
+# Create an admin user
+POST http://localhost:5000/add-user 
+Content-Type: application/json
+
+{
+    "name": "Admin",
+    "email": "admin@upn.com",
+    "password": "admin123",
+    "role": "admin"
+}
+
+###
+
+# Update a user
+PUT http://localhost:5000/edit-user/1
+Content-Type: application/json
+
+{
+    "name": "chrisna",
+    "email": "updated@upn.com"
+}
+
+###
+
+# Delete a user
+DELETE http://localhost:5000/delete-user/2
+
+###
+
+# Login as admin
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "admin@upn.com",
+    "password": "admin123"
+}
+
+###
+
+# Login as regular user
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "123220051@upn.com",
+    "password": "pepep123"
+}
+
+###
+
+# Logout
+POST http://localhost:5000/logout
+
+### Event Routes
+
+# Get all events (requires login)
+GET http://localhost:5000/events
+
+###
+
+# Get events by specific date (requires login)
+GET http://localhost:5000/events/date/2023-11-20
+
+###
+
+# Create an event (requires admin login)
+POST http://localhost:5000/events
+Content-Type: application/json
+
+{
+    "title": "Final Exam",
+    "description": "Final examination for all students",
+    "date": "2023-12-15"
+}
+
+###
+
+# Update an event (requires admin login)
+PUT http://localhost:5000/events/1
+Content-Type: application/json
+
+{
+    "title": "Updated Exam Schedule",
+    "description": "Updated description for the final exam",
+    "date": "2023-12-16"
+}
+
+###
+
+# Delete an event (requires admin login)
+DELETE http://localhost:5000/events/1
