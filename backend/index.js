@@ -8,18 +8,22 @@ import User from "./models/UserModel.js";
 
 const app = express();
 
-// Updated CORS configuration for same-VM setup
+// Updated CORS configuration to allow specific origins
 const corsOptions = {
   origin: function(origin, callback) {
-    // Allow requests from these origins (include your VM's IP and domain)
+    // Allow requests from these specific origins
     const allowedOrigins = [
       'http://localhost:8080',
       'http://localhost',
-      `http://${process.env.VM_IP || '127.0.0.1'}`,
-      `http://${process.env.VM_IP || '127.0.0.1'}:8080`
+      'http://34.46.200.21:8080',
+      'http://34.46.200.21',
+      // Add any other origins you need to support
     ];
     
-    // For same-machine requests, origin might be null
+    // For development, you can also allow all origins
+    // callback(null, true);
+    
+    // Or use the following for production
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -30,6 +34,8 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 };
+
+// Apply CORS globally to all routes
 app.use(cors(corsOptions));
 
 // Initialize the database connection

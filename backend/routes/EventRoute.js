@@ -1,5 +1,6 @@
 import express from "express";
-import cors from "cors";
+// Remove cors import as it's already handled globally
+// import cors from "cors";
 import {
   getEvents,
   getEventsByDate,
@@ -10,27 +11,6 @@ import {
 } from "../controllers/EventController.js";
 
 const router = express.Router();
-
-// Updated CORS to allow specific origins
-router.use(cors({ 
-  origin: function(origin, callback) {
-    // Allow requests from these specific origins
-    const allowedOrigins = [
-      'http://localhost:8080',
-      'http://localhost',
-      'http://34.46.200.21:8080', 
-      'http://34.46.200.21'
-    ];
-    
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
 
 // Middleware for logging incoming requests
 router.use((req, res, next) => {

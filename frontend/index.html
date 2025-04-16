@@ -31,6 +31,29 @@
 		const BACKEND_API_URL = `${BACKEND_BASE_URL}/events`;
 		
 		console.log(`Using backend at: ${BACKEND_BASE_URL}`);
+		
+		// Add a function to test the API connection
+		function testApiConnection() {
+			fetch(BACKEND_API_URL, { 
+				method: 'GET',
+				credentials: 'include'
+			})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`Status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log('API Connection successful:', data);
+			})
+			.catch(error => {
+				console.error('API Connection failed:', error);
+			});
+		}
+		
+		// Uncomment to test connection on page load
+		// window.addEventListener('load', testApiConnection);
 	</script>
 </head>
 <!--end::Head-->
