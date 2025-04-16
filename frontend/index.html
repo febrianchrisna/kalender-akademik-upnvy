@@ -18,7 +18,12 @@
 	<!--end::Global Stylesheets Bundle-->
 	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	<script>
-		const BACKEND_API_URL = "http://34.46.200.21:5000/api/events"; // Ensure this matches your backend URL
+		// If both frontend and backend are on the same VM
+		// Use a simple relative URL or localhost
+		const BACKEND_BASE_URL = "/api";  // Relative URL approach
+		// Alternative: const BACKEND_BASE_URL = "http://localhost:5000/api";
+		
+		const BACKEND_API_URL = `${BACKEND_BASE_URL}/events`;
 	</script>
 </head>
 <!--end::Head-->

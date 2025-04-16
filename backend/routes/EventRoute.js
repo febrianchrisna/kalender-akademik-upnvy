@@ -11,10 +11,25 @@ import {
 
 const router = express.Router();
 
-// Allow specific origin for development
+// Updated CORS to allow specific origins
 router.use(cors({ 
-  origin: "http://localhost:8080", // Replace with your frontend URL
-  credentials: true // Allow cookies and credentials
+  origin: function(origin, callback) {
+    // Allow requests from these specific origins
+    const allowedOrigins = [
+      'http://localhost:8080',
+      'http://localhost',
+      'http://34.46.200.21:8080', 
+      'http://34.46.200.21'
+    ];
+    
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 // Middleware for logging incoming requests

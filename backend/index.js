@@ -8,12 +8,27 @@ import User from "./models/UserModel.js";
 
 const app = express();
 
-// Add CORS configuration
+// Updated CORS configuration for same-VM setup
 const corsOptions = {
-  origin: "http://34.46.200.21:8080", // Gantilah dengan alamat IP eksternal VM Anda
-  credentials: true,                   // Allow cookies and credentials
-  methods: ["GET", "POST", "PUT", "DELETE"],  // Metode HTTP yang diizinkan
-  allowedHeaders: ["Content-Type", "Authorization"], // Header yang diizinkan
+  origin: function(origin, callback) {
+    // Allow requests from these origins (include your VM's IP and domain)
+    const allowedOrigins = [
+      'http://localhost:8080',
+      'http://localhost',
+      `http://${process.env.VM_IP || '127.0.0.1'}`,
+      `http://${process.env.VM_IP || '127.0.0.1'}:8080`
+    ];
+    
+    // For same-machine requests, origin might be null
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
 app.use(cors(corsOptions));
 
@@ -58,4 +73,5 @@ app.use(session({
 app.use("/api", UserRoute);
 app.use("/api", EventRoute);
 
+// Make sure to listen on all interfaces (not just localhost)
 app.listen(5000, '0.0.0.0', () => console.log("Server connected on port 5000"));
