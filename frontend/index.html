@@ -18,16 +18,19 @@
 	<!--end::Global Stylesheets Bundle-->
 	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	<script>
-		// Always use the explicit backend URL with port for now
-		// This ensures it works in all environments without requiring a proxy
-		const BACKEND_BASE_URL = "http://localhost:5000/api";
+		 // Dynamic backend URL based on environment
+		const currentHost = window.location.hostname;
 		
-		// When deploying to production VM, you can update this to:
-		// const BACKEND_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-		//     ? "http://localhost:5000/api"
-		//     : `http://${window.location.hostname}:5000/api`;
+		// If running on VM, use VM's IP for backend
+		// If running locally, use localhost
+		const backendHost = currentHost === "localhost" || currentHost === "127.0.0.1"
+			? "localhost"
+			: currentHost;
 		
+		const BACKEND_BASE_URL = `http://${backendHost}:5000/api`;
 		const BACKEND_API_URL = `${BACKEND_BASE_URL}/events`;
+		
+		console.log(`Using backend at: ${BACKEND_BASE_URL}`);
 	</script>
 </head>
 <!--end::Head-->
