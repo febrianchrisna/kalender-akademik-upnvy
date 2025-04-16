@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 
 // Nyambungin db ke BE
-const db = new Sequelize("tcc-uts", "root", "febrian123", {
-  host: "34.44.61.23",
+const db = new Sequelize("tcc-uts", "root", "triomacan", {
+  host: "34.134.215.121",
   dialect: "mysql",
 });
 
