@@ -18,15 +18,14 @@
 	<!--end::Global Stylesheets Bundle-->
 	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	<script>
-		 // Detect environment and set appropriate API URL
-		// This supports both local development and deployment on the same VM
-		const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+		// Always use the explicit backend URL with port for now
+		// This ensures it works in all environments without requiring a proxy
+		const BACKEND_BASE_URL = "http://localhost:5000/api";
 		
-		// For local development: use full URL with port (backend on 5000, frontend on 8080)
-		// For production: use relative URL (assumes proper proxy setup)
-		const BACKEND_BASE_URL = isLocalDev 
-			? "http://localhost:5000/api" 
-			: "/api";
+		// When deploying to production VM, you can update this to:
+		// const BACKEND_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+		//     ? "http://localhost:5000/api"
+		//     : `http://${window.location.hostname}:5000/api`;
 		
 		const BACKEND_API_URL = `${BACKEND_BASE_URL}/events`;
 	</script>
